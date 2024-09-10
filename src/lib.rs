@@ -7,6 +7,7 @@ struct MyMat<const WIDTH: usize, const HEIGHT: usize> {
 }
 impl<const WIDTH: usize, const HEIGHT: usize> MyMat<WIDTH, HEIGHT> {
     fn new() -> Self {
+        assert_eq!( WIDTH - 1, HEIGHT, "const WIDTH has to eq HEIGHT+1, so WIDTH shoud be {}, WIDTH:{},HEIGHT:{}", HEIGHT + 1, WIDTH, HEIGHT);
         Self {
             data: [MyArr::new([0; WIDTH]); HEIGHT],
         }
@@ -99,7 +100,7 @@ mod tests {
     fn new_test<const WIDTH: usize, const HEIGHT: usize>(
         test_vals: Vec<i64>,
     ) -> MyMat<WIDTH, HEIGHT> {
-        assert_eq!( WIDTH, HEIGHT + 1, "const WIDTH has to eq HEIGHT+1, so WIDTH shoud be {}, WIDTH:{},HEIGHT:{}", HEIGHT + 1, WIDTH, HEIGHT);
+        assert_eq!( WIDTH - 1, HEIGHT, "const WIDTH has to eq HEIGHT+1, so WIDTH shoud be {}, WIDTH:{},HEIGHT:{}", HEIGHT + 1, WIDTH, HEIGHT);
 
         let VALUE: usize = HEIGHT;
         let mut mat: [MyArr<i64, WIDTH>; HEIGHT] = [MyArr::new([0; WIDTH]); HEIGHT];
